@@ -1,0 +1,17 @@
+---
+
+- name: install curl
+  apt:
+    name: curl
+    state: present
+
+- name: install netplan
+  apt:
+    name: netplan.io
+    state: present
+
+- name: setup config directory
+  file:
+    path: {{ home_dir }}/{{ config_dir }}
+    state: directory
+
