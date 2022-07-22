@@ -15,15 +15,15 @@
 
 - name: create mount directory
   file:
-    path: {{ home_dir }}/{{ config_dir }}/volumes
+    path: "{{ home_dir }}/{{ config_dir }}/volumes"
     state: directory
 
 - name: create db mount directory
   file:
-    path: {{ home_dir }}/{{ config_dir }}/volumes/db
+    path: "{{ home_dir }}/{{ config_dir }}/volumes/db"
     state: directory
 
 - name: create phrases mount directory
   file:
-    path: {{ home_dir }}/{{ config_dir }}/volumes/phrases
+    path: "{{ home_dir }}/{{ config_dir }}/volumes/phrases"
     state: directory
