@@ -12,6 +12,6 @@
 
 - name: setup config directory
   file:
-    path: {{ home_dir }}/{{ config_dir }}
+    path: "{{ home_dir }}/{{ config_dir }}"
     state: directory
 
