@@ -2,5 +2,5 @@
 
 apt-get install -y ansible
 
-ansible-playbook --connection=local --inventory 127.0.0.1 --limit 127.0.0.1 site.yml
+ansible-playbook --connection=local -i hosts.yml -e @extra.yml site.yml
 
