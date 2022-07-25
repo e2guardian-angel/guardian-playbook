@@ -1,12 +1,13 @@
 ---
 
-- name: install curl
-  apt:
-    name: curl
-    state: present
+- name: Get helm install script
+  ansbile.buildin.get_url
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /tmp/get-helm-3.sh
+    mode: 0700
 
 - name: install helm
-  shell: if [ -z `which helm` ]; then curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sh -; else echo "helm already installed"; fi
+  shell: if [ -z `which helm` ]; then /tmp/get-helm-3.sh; else echo "helm already installed"; fi
 
 - name: create charts directory
   file:
