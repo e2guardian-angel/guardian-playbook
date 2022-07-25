@@ -5,11 +5,6 @@
     name: curl
     state: present
 
-- name: install netplan
-  apt:
-    name: netplan.io
-    state: present
-
 - name: install k3s
   shell: if [ -z `which kubectl` ]; then curl -sfL https://get.k3s.io | sh -; else echo "k3s already installed"; fi
 
