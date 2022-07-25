@@ -6,8 +6,13 @@
     dest: /tmp/get-helm-3.sh
     mode: 0700
 
-- name: install helm
+- name: Install helm
   shell: if [ -z `which helm` ]; then /tmp/get-helm-3.sh; else echo "helm already installed"; fi
+
+- name: Cleanup
+  file:
+    path: "/tmp/get-helm-3.sh"
+    state: deleted
 
 - name: create charts directory
   file:
