@@ -1,7 +1,7 @@
 ---
 
 - name: Get helm install script
-  ansbile.buildin.get_url
+  ansbile.builtin.get_url:
     url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
     dest: /tmp/get-helm-3.sh
     mode: 0700
