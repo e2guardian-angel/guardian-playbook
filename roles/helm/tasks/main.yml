@@ -12,7 +12,7 @@
 - name: Cleanup
   file:
     path: "/tmp/get-helm-3.sh"
-    state: deleted
+    state: absent
 
 - name: create charts directory
   file:
