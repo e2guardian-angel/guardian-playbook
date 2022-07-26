@@ -8,6 +8,16 @@
 - name: install k3s
   shell: if [ -z `which kubectl` ]; then curl -sfL https://get.k3s.io | sh -; else echo "k3s already installed"; fi
 
+- name: set permissions
+  lineinfile:
+    dest: /etc/systemd/system/k3s.service.env
+    line: K3S_KUBECONFIG_MODE="644"
+
+- name: restart k3s
+  service:
+    name: k3s
+    state: restarted
+
 - name: create mount directory
   file:
     path: "{{ home_dir }}/{{ config_dir }}/volumes"
