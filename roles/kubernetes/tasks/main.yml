@@ -49,9 +49,9 @@
     name: k3s
     state: restarted
   when:
-    - cgroup_memory_1.skipped
-    - cgroup_enable_memory.skipped
-    - k3s_kubeconfig_mode.changed
+    - cgroup_memory_1 is not changed
+    - cgroup_enable_memory is not changed
+    - k3s_kubeconfig_mode is not changed
 
 - name: create mount directory
   file:
