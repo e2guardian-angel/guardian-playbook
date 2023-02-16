@@ -42,11 +42,16 @@
   lineinfile:
     dest: /etc/systemd/system/k3s.service.env
     line: K3S_KUBECONFIG_MODE="644"
+  register: k3s_kubeconfig_mode
 
 - name: restart k3s
   service:
     name: k3s
     state: restarted
+  when:
+    - cgroup_memory_1.skipped
+    - cgroup_enable_memory.skipped
+    - k3s_kubeconfig_mode.changed
 
 - name: create mount directory
   file:

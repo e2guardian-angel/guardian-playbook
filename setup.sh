@@ -12,4 +12,3 @@ else
     echo "cmdline.txt changed, rebooting..."
     reboot
 fi
-  
