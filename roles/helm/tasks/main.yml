@@ -1,18 +1,26 @@
 ---
 
+- name: Check if helm is installed
+  stat:
+    path: /usr/local/bin/helm
+  register: helm_exe
+
 - name: Get helm install script
   get_url:
     url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
     dest: /tmp/get-helm-3.sh
     mode: 0700
+  when: helm_exe.stat.exists == False
 
 - name: Install helm
   shell: if [ -z `which helm` ]; then /tmp/get-helm-3.sh; else echo "helm already installed"; fi
+  when: helm_exe.stat.exists == False
 
 - name: Cleanup
   file:
     path: "/tmp/get-helm-3.sh"
     state: absent
+  when: helm_exe.stat.exists == False
 
 - name: create charts directory
   file:
