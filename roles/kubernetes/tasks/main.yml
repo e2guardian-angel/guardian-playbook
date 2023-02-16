@@ -51,7 +51,7 @@
   when:
     - cgroup_memory_1 is not changed
     - cgroup_enable_memory is not changed
-    - k3s_kubeconfig_mode is not changed
+    - k3s_kubeconfig_mode is changed
 
 - name: create mount directory
   file:
