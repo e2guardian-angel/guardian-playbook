@@ -23,7 +23,6 @@
     key: cgroup_enable
     value: memory
     update: false
-  register: cgroup_enable_memory
   when: cmdline_txt.stat.exists == True
 
 - include_tasks: cmdline.yml
@@ -31,7 +30,6 @@
     key: cgroup_memory
     value: 1
     update: true
-  register: cgroup_memory_1
   when: cmdline_txt.stat.exists == True
 
 - name: install k3s
@@ -43,15 +41,6 @@
     dest: /etc/systemd/system/k3s.service.env
     line: K3S_KUBECONFIG_MODE="644"
   register: k3s_kubeconfig_mode
-
-- name: restart k3s
-  service:
-    name: k3s
-    state: restarted
-  when:
-    - cgroup_memory_1 is not changed
-    - cgroup_enable_memory is not changed
-    - k3s_kubeconfig_mode is changed
 
 - name: create mount directory
   file:
