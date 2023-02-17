@@ -1,15 +1,4 @@
 ---
-- name: Create cert-manager namespace
-  kubernetes.core.k8s:
-    state: present
-    kubeconfig: /etc/rancher/k3s/k3s.yaml
-    kind: Namespace
-    definition:
-      metadata:
-        labels:
-          name: "cert-manager"
-        name: "filter"
-
 - name: Add jetstack repo
   kubernetes.core.helm_repository:
     name: jetstack
@@ -19,6 +8,7 @@
   kubernetes.core.helm:
     kubeconfig: /etc/rancher/k3s/k3s.yaml
     release_namespace: cert-manager
+    create_namespace: true
     chart_ref: jetstack/cert-manager
     release_name: cert-manager
     values:
