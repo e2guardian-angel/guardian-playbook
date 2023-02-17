@@ -17,6 +17,7 @@
 
 - name: Install cert-manager
   kubernetes.core.helm:
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
     release_namespace: cert-manager
     chart_ref: jetstack/cert-manager
     release_name: cert-manager
