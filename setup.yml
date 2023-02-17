@@ -6,3 +6,4 @@
     - init
     - kubernetes
     - helm
+    - certmanager
