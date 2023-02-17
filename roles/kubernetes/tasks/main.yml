@@ -1,36 +1,13 @@
 ---
-
 - name: install curl
   apt:
     name: curl
     state: present
 
-- name: Check if /boot/cmdline.txt exists
-  stat:
-    path: /boot/cmdline.txt
-  register: cmdline_txt
-
 - name: Check if kubectl is installed
   stat:
     path: /usr/local/bin/kubectl
   register: kubectl_exe
-
-- set_fact:
-    cmdline_txt_path: /boot/cmdline.txt
-
-- include_tasks: cmdline.yml
-  vars:
-    key: cgroup_enable
-    value: memory
-    update: false
-  when: cmdline_txt.stat.exists == True
-
-- include_tasks: cmdline.yml
-  vars:
-    key: cgroup_memory
-    value: 1
-    update: true
-  when: cmdline_txt.stat.exists == True
 
 - name: install k3s
   shell: curl -sfL https://get.k3s.io | sh || true
@@ -41,6 +18,12 @@
     dest: /etc/systemd/system/k3s.service.env
     line: K3S_KUBECONFIG_MODE="644"
   register: k3s_kubeconfig_mode
+
+- name: restart k3s
+  service:
+    name: k3s
+    state: restarted
+  when: k3s_kubeconfig_mode is changed
 
 - name: create mount directory
   file:
